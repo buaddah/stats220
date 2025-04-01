@@ -1,0 +1,54 @@
+---
+title: My dynamic report
+output: html_fragment
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE, error=FALSE)
+
+```
+
+```{css}
+h2 {
+  font-weight: bold;
+  color: blue;
+}
+```
+
+## Study Alone or in a Group?
+
+Do students like to study alone? and how often do we see this in lectures?
+
+```{r}
+library(tidyverse)
+csv_link <- "https://docs.google.com/spreadsheets/d/e/2PACX-1vRVs1JmOGD06PfK0GSsq6bTHz8wplGj4GyBW1aqqGec4HRc5YC8EDJndma8cw0KNCZJxC79WpV5V9Wd/pub?gid=230916538&single=true&output=csv"
+logged_data <- read_csv(csv_link)
+
+#rename columns of my data
+latest_data <- logged_data %>%
+  rename(Date_logged = 1,
+         Number_of_people_sat_together = 2,
+         Prefered_to_study_alone = 3)
+
+mean_of_people_sat_together <- mean(latest_data$Number_of_people_sat_together) #the average amount of people sat together in a group
+prefered_alone <- sum(latest_data$Prefered_to_study_alone == "Yes") #The amount of people that prefer to be alone
+not_prefered_alone <- sum(latest_data$Prefered_to_study_alone == "No") #The amount of people that prefer not to be alone
+
+#Bar graph to show the data in which people prefer to be or not to be alone
+Prefered_to_study_alone_plot <- ggplot(data = latest_data) +
+  geom_bar(aes(x = Prefered_to_study_alone))
+#Bar graph to show how many people sit together in a lecture
+Number_of_people_sat_together_plot <- ggplot(data = latest_data) +
+  geom_bar(aes(y = Number_of_people_sat_together))
+
+mean_of_people_sat_together
+prefered_alone
+not_prefered_alone
+Prefered_to_study_alone_plot
+Number_of_people_sat_together_plot
+
+paste("The mean number of people a person in a STATS220 lecture would be sitting with is", mean_of_people_sat_together, ".")
+paste("Most people surveyed would rather study with other people than study alone, as shown,", not_prefered_alone, "people perfered not to be alone, while", prefered_alone, "perfered to be alone.")
+```
+
+
