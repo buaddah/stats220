@@ -1,0 +1,67 @@
+---
+title: How different color shirts or days could change the way students dress.
+output: html_document
+---
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE, error=FALSE)
+```
+
+```{js}
+$(function() {
+  $(".level2").css('visibility', 'hidden');
+  $(".level2").first().css('visibility', 'visible');
+  $(".container-fluid").height($(".container-fluid").height() + 300);
+  $(window).on('scroll', function() {
+    $('h2').each(function() {
+      var h2Top = $(this).offset().top - $(window).scrollTop();
+      var windowHeight = $(window).height();
+      if (h2Top >= 0 && h2Top <= windowHeight / 2) {
+        $(this).parent('div').css('visibility', 'visible');
+      } else if (h2Top > windowHeight / 2) {
+        $(this).parent('div').css('visibility', 'hidden');
+      }
+    });
+  });
+})
+```
+
+```{css}
+.figcaption {display: none}
+
+#heading1 {
+  color: #636363;
+}
+
+#heading2 {
+  color: #000080; 
+}
+
+#heading3 {
+  color: #c994c7; 
+}
+```
+
+## <span id="heading1">Dark Shirt Color Popularity</span>
+
+![Dark Shirt Color Popularity](plot1.png)
+
+## <span id="heading2">Formal Shoe Wears by Day</span>
+
+![Formal Shoe Wears on 12/05 and 13/05](plot2.png)
+
+
+## <span id="heading3">Accessories and Shirt Color</span>
+
+![Number Of Accessories and Shirt Color](plot3.png)
+
+What I am investigating are style choices on shirt color, shoes and Accessories. Specifically patterns in shirt Color, Shoes, and Accessories, and what we could learn about someone based on their shirt color or more. We could also learn about peoples style choices based on the day, or time of the day.
+
+For Plot1 I have analysed that most people wore dark shirts, showing popularity for more black/dark grey shirt than lighter or more colorful colored shirts. This can be used to show the fact that most students do not mind about their clothing appearance.
+
+For Plot2 I noticed that few wore formal shoes, with a slight increase on Day 14. Even though it is few I expected less and I analysed that it is due to graduations happening on that date.
+
+For plot 3 I noticed those wearing more colorful clothing tended to wear more accessories on average than people who wear less colorful clothing (shades of black or white). This data can be used to convey the fact that people who wear colorful clothing probably care more about what they wear so they would have more accessories on average.
+
